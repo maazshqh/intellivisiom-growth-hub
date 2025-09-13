@@ -37,8 +37,8 @@ export function Header() {
     >
       <div className="container mx-auto px-4">
         <nav className="flex items-center justify-between">
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
+          <Link to="/" className="flex items-center space-x-2 group">
+            <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
               <span className="text-primary-foreground font-bold text-lg">I</span>
             </div>
             <span className="text-xl font-bold gradient-text">
@@ -52,13 +52,14 @@ export function Header() {
               <Link
                 key={item.name}
                 to={item.href}
-                className={`text-sm font-medium transition-colors hover:text-primary ${
+                className={`text-sm font-medium transition-all duration-300 relative group ${
                   location.pathname === item.href
                     ? "text-primary"
-                    : "text-foreground"
+                    : "text-foreground hover:text-primary"
                 }`}
               >
                 {item.name}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
               </Link>
             ))}
           </div>
@@ -69,7 +70,7 @@ export function Header() {
               <Phone className="w-4 h-4" />
               <span>+1 (555) 123-4567</span>
             </div>
-            <Button variant="hero" size="lg">
+            <Button variant="hero" size="lg" className="button-hover glow-hover">
               Get Quote
             </Button>
           </div>

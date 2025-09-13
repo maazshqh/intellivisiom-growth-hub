@@ -1,14 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { CounterAnimation } from "@/components/CounterAnimation";
+import { AnimatedSection, AnimatedList } from "@/components/AnimatedSection";
+import { ScrollProgress } from "@/components/ScrollProgress";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, CheckCircle, Users, Clock, Award, Phone, MessageSquare, HeadphonesIcon, Building2, TrendingUp, BarChart3 } from "lucide-react";
+import { ArrowRight, CheckCircle, Users, Clock, Award, Phone, MessageSquare, HeadphonesIcon, Building2, TrendingUp, BarChart3, Zap, Globe, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-image.jpg";
 import partnerLogo1 from "@/assets/partner-logo-1.jpg";
 
 export default function Home() {
   return (
-    <div className="pt-20">
+    <>
+      <ScrollProgress />
+      <div className="pt-20">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center bg-gradient-hero overflow-hidden">
         <div className="absolute inset-0">
@@ -22,95 +26,115 @@ export default function Home() {
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center text-primary-foreground">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 fade-in-up">
-              Scale Your Business with 
-              <span className="block text-accent-sky">World-Class BPO</span>
-            </h1>
-            <p className="text-xl md:text-2xl mb-8 text-accent-sky/90 fade-in-up stagger-1">
-              We deliver exceptional customer experiences, drive sales growth, and streamline operations while you focus on what matters most.
-            </p>
+            <AnimatedSection animation="fade-up-scale" duration={800}>
+              <h1 className="text-5xl md:text-7xl font-bold mb-6">
+                Scale Your Business with 
+                <span className="block text-accent-sky parallax-float">World-Class BPO</span>
+              </h1>
+            </AnimatedSection>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 fade-in-up stagger-2">
-              <Button variant="hero" size="xl" className="group">
-                Get Free Quote
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              <Button variant="hero-outline" size="xl">
-                Book 15-min Consult
-              </Button>
-            </div>
+            <AnimatedSection animation="fade-up" delay={200}>
+              <p className="text-xl md:text-2xl mb-8 text-accent-sky/90">
+                We deliver exceptional customer experiences, drive sales growth, and streamline operations while you focus on what matters most.
+              </p>
+            </AnimatedSection>
+            
+            <AnimatedSection animation="scale-up" delay={400}>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                <Button variant="hero" size="xl" className="group button-hover glow-hover">
+                  Get Free Quote
+                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Button>
+                <Button variant="hero-outline" size="xl" className="button-hover">
+                  Book 15-min Consult
+                </Button>
+              </div>
+            </AnimatedSection>
 
             {/* Trust Metrics */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 fade-in-up stagger-3">
-              <div className="text-center">
-                <div className="text-4xl md:text-5xl font-bold text-accent-sky mb-2">
-                  <CounterAnimation end={95} suffix="%" />
+            <AnimatedList staggerDelay={150} animation="fade-up-scale">
+              {[
+                { value: 95, suffix: "%", label: "Customer Satisfaction", icon: Users },
+                { value: "24/7", label: "Coverage Available", icon: Clock },
+                { value: 8, suffix: "+", label: "Years Experience", icon: Award }
+              ].map((metric, index) => (
+                <div key={index} className="text-center group">
+                  <div className="text-4xl md:text-5xl font-bold text-accent-sky mb-2 transition-transform duration-300 group-hover:scale-110">
+                    {typeof metric.value === 'number' ? (
+                      <CounterAnimation end={metric.value} suffix={metric.suffix || ""} />
+                    ) : (
+                      metric.value
+                    )}
+                  </div>
+                  <div className="text-lg flex items-center justify-center gap-2">
+                    <metric.icon className="w-5 h-5 opacity-70" />
+                    {metric.label}
+                  </div>
                 </div>
-                <div className="text-lg">Customer Satisfaction</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl md:text-5xl font-bold text-accent-sky mb-2">
-                  24/7
-                </div>
-                <div className="text-lg">Coverage Available</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl md:text-5xl font-bold text-accent-sky mb-2">
-                  <CounterAnimation end={8} suffix="+" />
-                </div>
-                <div className="text-lg">Years Experience</div>
-              </div>
-            </div>
+              ))}
+            </AnimatedList>
           </div>
         </div>
       </section>
 
       {/* Who We Serve */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text">
-              Who We Serve
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              From ambitious startups to Fortune 500 enterprises, we provide scalable BPO solutions that grow with your business.
-            </p>
-          </div>
+      <section className="py-20 bg-background relative overflow-hidden">
+        <div className="absolute top-10 right-10 w-32 h-32 bg-gradient-primary rounded-full opacity-10 parallax-float"></div>
+        <div className="absolute bottom-10 left-10 w-24 h-24 bg-accent rounded-full opacity-10 parallax-rotate"></div>
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <AnimatedSection animation="fade-up" threshold={0.2}>
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text">
+                Who We Serve
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                From ambitious startups to Fortune 500 enterprises, we provide scalable BPO solutions that grow with your business.
+              </p>
+            </div>
+          </AnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <AnimatedList staggerDelay={100} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
                 icon: TrendingUp,
                 title: "Startups",
-                description: "Fast, flexible support to scale quickly while maintaining quality."
+                description: "Fast, flexible support to scale quickly while maintaining quality.",
+                color: "from-green-500 to-emerald-600"
               },
               {
                 icon: Building2,
                 title: "SMBs",
-                description: "Cost-effective solutions that deliver enterprise-level service."
+                description: "Cost-effective solutions that deliver enterprise-level service.",
+                color: "from-blue-500 to-indigo-600"
               },
               {
                 icon: BarChart3,
                 title: "Enterprises",
-                description: "Complex, multi-channel operations with robust compliance."
+                description: "Complex, multi-channel operations with robust compliance.",
+                color: "from-purple-500 to-violet-600"
               },
               {
                 icon: Users,
                 title: "Agencies",
-                description: "White-label support services for your client success."
+                description: "White-label support services for your client success.",
+                color: "from-orange-500 to-red-600"
               }
             ].map((item, index) => (
-              <Card key={item.title} className={`card-hover fade-in-up stagger-${index + 1}`}>
-                <CardContent className="p-8 text-center">
-                  <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-6">
+              <Card key={item.title} className="card-hover group glow-hover">
+                <CardContent className="p-8 text-center relative overflow-hidden">
+                  <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-6 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-12">
                     <item.icon className="w-8 h-8 text-primary-foreground" />
                   </div>
-                  <h3 className="text-xl font-semibold mb-4">{item.title}</h3>
+                  <h3 className="text-xl font-semibold mb-4 group-hover:text-primary transition-colors duration-300">{item.title}</h3>
                   <p className="text-muted-foreground">{item.description}</p>
+                  
+                  {/* Hover gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
                 </CardContent>
               </Card>
             ))}
-          </div>
+          </AnimatedList>
         </div>
       </section>
 
@@ -273,5 +297,6 @@ export default function Home() {
         </div>
       </section>
     </div>
+    </>
   );
 }
