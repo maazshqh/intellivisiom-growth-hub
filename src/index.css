@@ -4,7 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Intellivisiom Services Design System */
+/* Intellivision Services Design System */
 
 @layer base {
   :root {
@@ -347,10 +347,13 @@
 
 @keyframes float {
   0%, 100% {
-    transform: translateY(0px);
+    transform: translateY(0px) rotate(0deg);
   }
-  50% {
-    transform: translateY(-20px);
+  33% {
+    transform: translateY(-10px) rotate(1deg);
+  }
+  66% {
+    transform: translateY(5px) rotate(-1deg);
   }
 }
 
@@ -393,4 +396,72 @@
 @keyframes countUp {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+/* 3D Flip Card Styles */
+.flip-card-container {
+  height: 320px;
+  perspective: 1200px;
+}
+
+.flip-card-inner {
+  transform-style: preserve-3d;
+  transition: transform 0.35s ease-out;
+}
+
+.flip-card-inner.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.flip-card-inner:hover {
+  transform: scale(1.02);
+}
+
+.flip-card-inner.is-flipped:hover {
+  transform: rotateY(180deg) scale(1.02);
+}
+
+.flip-card-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+/* Floating Elements */
+.floating-element {
+  will-change: transform;
+}
+
+.particle-blob {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.grid-pattern {
+  pointer-events: none;
+}
+
+/* Scrollbar hide utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hero video overlay */
+.hero-video-overlay {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(11, 61, 145, 0.6));
+}
+
+/* Additional brand colors for component use */
+.accent-sky {
+  color: hsl(var(--accent));
 }

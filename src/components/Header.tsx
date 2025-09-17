@@ -42,7 +42,7 @@ export function Header() {
               <span className="text-primary-foreground font-bold text-lg">I</span>
             </div>
             <span className="text-xl font-bold gradient-text">
-              Intellivisiom Services
+              Intellivision Services
             </span>
           </Link>
 

@@ -3,10 +3,12 @@ import { CounterAnimation } from "@/components/CounterAnimation";
 import { AnimatedSection, AnimatedList } from "@/components/AnimatedSection";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { Card, CardContent } from "@/components/ui/card";
+import { FlipCard } from "@/components/FlipCard";
+import { FloatingElement, NetworkNode, ParticleBlob, GridPattern } from "@/components/FloatingElements";
+import { ScrollingLogos } from "@/components/ScrollingLogos";
 import { ArrowRight, CheckCircle, Users, Clock, Award, Phone, MessageSquare, HeadphonesIcon, Building2, TrendingUp, BarChart3, Zap, Globe, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
-import heroImage from "@/assets/hero-image.jpg";
-import partnerLogo1 from "@/assets/partner-logo-1.jpg";
+import heroVideoFallback from "@/assets/hero-video-fallback.jpg";
 
 export default function Home() {
   return (
@@ -14,65 +16,102 @@ export default function Home() {
       <ScrollProgress />
       <div className="pt-20">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center bg-gradient-hero overflow-hidden">
+      <section className="relative min-h-screen flex items-center overflow-hidden">
+        {/* Background Video/Image */}
         <div className="absolute inset-0">
           <img 
-            src={heroImage} 
-            alt="Professional call center team" 
-            className="w-full h-full object-cover opacity-20"
+            src={heroVideoFallback} 
+            alt="Professional business operations background" 
+            className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-hero/80"></div>
+          <div className="absolute inset-0 hero-video-overlay"></div>
+        </div>
+
+        {/* Floating Background Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <FloatingElement className="absolute top-20 left-10" delay={0}>
+            <NetworkNode size="lg" className="text-accent" />
+          </FloatingElement>
+          
+          <FloatingElement className="absolute top-40 right-20" delay={1000}>
+            <ParticleBlob className="w-20 h-20" />
+          </FloatingElement>
+          
+          <FloatingElement className="absolute bottom-40 left-20" delay={2000}>
+            <NetworkNode size="md" className="text-primary" />
+          </FloatingElement>
+          
+          <FloatingElement className="absolute top-60 left-1/3" delay={1500}>
+            <div className="w-12 h-12 border border-accent/30 rounded-lg rotate-45 bg-accent/10"></div>
+          </FloatingElement>
+          
+          <FloatingElement className="absolute bottom-60 right-1/3" delay={500}>
+            <ParticleBlob className="w-16 h-16" />
+          </FloatingElement>
+
+          <div className="absolute top-0 right-0 w-80 h-80 opacity-20">
+            <GridPattern />
+          </div>
         </div>
         
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center text-primary-foreground">
-            <AnimatedSection animation="fade-up-scale" duration={800}>
-              <h1 className="text-5xl md:text-7xl font-bold mb-6">
-                Scale Your Business with 
-                <span className="block text-accent-sky parallax-float">World-Class BPO</span>
-              </h1>
-            </AnimatedSection>
-            
-            <AnimatedSection animation="fade-up" delay={200}>
-              <p className="text-xl md:text-2xl mb-8 text-accent-sky/90">
-                We deliver exceptional customer experiences, drive sales growth, and streamline operations while you focus on what matters most.
-              </p>
-            </AnimatedSection>
-            
-            <AnimatedSection animation="scale-up" delay={400}>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-                <Button variant="hero" size="xl" className="group button-hover glow-hover">
-                  Get Free Quote
-                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </Button>
-                <Button variant="hero-outline" size="xl" className="button-hover">
-                  Book 15-min Consult
-                </Button>
-              </div>
-            </AnimatedSection>
-
-            {/* Trust Metrics */}
-            <AnimatedList staggerDelay={150} animation="fade-up-scale">
-              {[
-                { value: 95, suffix: "%", label: "Customer Satisfaction", icon: Users },
-                { value: "24/7", label: "Coverage Available", icon: Clock },
-                { value: 8, suffix: "+", label: "Years Experience", icon: Award }
-              ].map((metric, index) => (
-                <div key={index} className="text-center group">
-                  <div className="text-4xl md:text-5xl font-bold text-accent-sky mb-2 transition-transform duration-300 group-hover:scale-110">
-                    {typeof metric.value === 'number' ? (
-                      <CounterAnimation end={metric.value} suffix={metric.suffix || ""} />
-                    ) : (
-                      metric.value
-                    )}
-                  </div>
-                  <div className="text-lg flex items-center justify-center gap-2">
-                    <metric.icon className="w-5 h-5 opacity-70" />
-                    {metric.label}
-                  </div>
+          <div className="max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left Content */}
+            <div className="text-primary-foreground">
+              <AnimatedSection animation="fade-up-scale" duration={800}>
+                <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                  Reliable Business Process
+                  <span className="block text-accent-sky parallax-float">Solutions</span>
+                </h1>
+              </AnimatedSection>
+              
+              <AnimatedSection animation="fade-up" delay={200}>
+                <p className="text-xl md:text-2xl mb-8 text-accent-sky/90 leading-relaxed">
+                  Intellivision Services delivers exceptional customer experiences and streamlines operations while you focus on growth.
+                </p>
+              </AnimatedSection>
+              
+              <AnimatedSection animation="scale-up" delay={400}>
+                <div className="flex flex-col sm:flex-row gap-4 mb-12">
+                  <Button variant="hero" size="xl" className="group button-hover glow-hover">
+                    Get Started
+                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                  <Button variant="hero-outline" size="xl" className="button-hover">
+                    View Services
+                  </Button>
                 </div>
-              ))}
-            </AnimatedList>
+              </AnimatedSection>
+            </div>
+
+            {/* Right - Trust Metrics */}
+            <div className="relative">
+              <AnimatedList staggerDelay={150} animation="fade-up-scale" className="grid grid-cols-1 gap-6">
+                {[
+                  { value: 95, suffix: "%", label: "Customer Satisfaction", icon: Users, color: "from-blue-500 to-blue-600" },
+                  { value: "24/7", label: "Coverage Available", icon: Clock, color: "from-green-500 to-green-600" },
+                  { value: 8, suffix: "+", label: "Years Experience", icon: Award, color: "from-purple-500 to-purple-600" }
+                ].map((metric, index) => (
+                  <div key={index} className="bg-card/10 backdrop-blur-sm border border-white/20 rounded-xl p-6 text-center group hover:bg-card/20 transition-all duration-300">
+                    <div className="flex items-center justify-center gap-4">
+                      <div className={`w-12 h-12 bg-gradient-to-r ${metric.color} rounded-lg flex items-center justify-center`}>
+                        <metric.icon className="w-6 h-6 text-white" />
+                      </div>
+                      <div className="text-left">
+                        <div className="text-3xl font-bold text-accent-sky mb-1">
+                          {typeof metric.value === 'number' ? (
+                            <CounterAnimation end={metric.value} suffix={metric.suffix || ""} />
+                          ) : (
+                            metric.value
+                          )}
+                        </div>
+                        <div className="text-primary-foreground/80 text-sm">{metric.label}</div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </AnimatedList>
+            </div>
           </div>
         </div>
       </section>
@@ -138,94 +177,110 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services Preview */}
-      <section className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Our Services
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Comprehensive BPO solutions designed to enhance customer experience and drive business growth.
-            </p>
-          </div>
+      {/* Services Preview - 3D Flip Cards */}
+      <section className="py-20 bg-muted/30 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-full opacity-5">
+          <GridPattern />
+        </div>
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <AnimatedSection animation="fade-up" threshold={0.2}>
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text">
+                Our Services
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                Comprehensive BPO solutions with 3D interactive service cards designed to enhance customer experience and drive business growth.
+              </p>
+            </div>
+          </AnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <AnimatedList 
+            staggerDelay={100} 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
+          >
             {[
               {
                 icon: HeadphonesIcon,
                 title: "Inbound Support",
-                description: "24/7 customer service excellence with multilingual capabilities."
+                subtitle: "24/7 customer service excellence with multilingual capabilities.",
+                description: "Professional customer support agents handle inquiries, resolve issues, and ensure exceptional service quality across all channels.",
+                features: ["24/7 Availability", "Multilingual Support", "Quality Assurance"],
+                href: "/services/inbound-support"
               },
               {
                 icon: Phone,
                 title: "Outbound Sales",
-                description: "Lead generation and sales conversion that drives revenue growth."
+                subtitle: "Lead generation and sales conversion that drives revenue growth.",
+                description: "Strategic outbound campaigns designed to generate qualified leads and convert prospects into loyal customers.",
+                features: ["Lead Generation", "Sales Conversion", "CRM Integration"],
+                href: "/services/outbound-sales"
               },
               {
                 icon: Building2,
                 title: "Back-Office Operations",
-                description: "Data processing, document management, and administrative support."
+                subtitle: "Data processing, document management, and administrative support.",
+                description: "Streamlined back-office processes including data entry, document processing, and administrative task automation.",
+                features: ["Data Processing", "Document Management", "Process Automation"],
+                href: "/services/back-office"
               },
               {
                 icon: Users,
                 title: "Virtual Assistants",
-                description: "Dedicated remote professionals for specialized business tasks."
+                subtitle: "Dedicated remote professionals for specialized business tasks.",
+                description: "Skilled virtual assistants providing executive support, research, and project management services tailored to your needs.",
+                features: ["Executive Support", "Research & Analysis", "Project Management"],
+                href: "/services/virtual-assistants"
               },
               {
                 icon: MessageSquare,
                 title: "Omnichannel Support",
-                description: "Seamless customer experience across all communication channels."
+                subtitle: "Seamless customer experience across all communication channels.",
+                description: "Unified customer support across phone, email, chat, and social media platforms for consistent service delivery.",
+                features: ["Multi-Channel Integration", "Unified Customer View", "Real-time Handoffs"],
+                href: "/services/omnichannel"
               },
               {
                 icon: BarChart3,
                 title: "Workforce Management",
-                description: "Optimized scheduling and performance analytics for peak efficiency."
+                subtitle: "Optimized scheduling and performance analytics for peak efficiency.",
+                description: "Advanced workforce optimization including resource planning, performance tracking, and cost management solutions.",
+                features: ["Resource Planning", "Performance Analytics", "Cost Optimization"],
+                href: "/services/workforce-management"
               }
             ].map((service, index) => (
-              <Card key={service.title} className={`card-hover fade-in-up stagger-${index % 3 + 1}`}>
-                <CardContent className="p-8">
-                  <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-6">
-                    <service.icon className="w-6 h-6 text-primary-foreground" />
-                  </div>
-                  <h3 className="text-xl font-semibold mb-4">{service.title}</h3>
-                  <p className="text-muted-foreground mb-6">{service.description}</p>
-                  <Link to={`/services/${service.title.toLowerCase().replace(/\s+/g, '-')}`}>
-                    <Button variant="outline" className="group">
-                      Learn More
-                      <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
+              <FlipCard
+                key={service.title}
+                icon={service.icon}
+                title={service.title}
+                subtitle={service.subtitle}
+                description={service.description}
+                features={service.features}
+                href={service.href}
+                className={`fade-in-up stagger-${index % 3 + 1}`}
+              />
             ))}
-          </div>
+          </AnimatedList>
         </div>
       </section>
 
-      {/* Partners Section */}
+      {/* Partners Section - Scrolling Logos */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
+          <AnimatedSection animation="fade-up" threshold={0.2}>
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
               Trusted by Companies Like These
             </h2>
             <p className="text-xl text-muted-foreground">
-              Join hundreds of satisfied clients who trust us with their business operations.
+              Join hundreds of satisfied clients who trust Intellivision Services with their business operations.
             </p>
           </div>
+          </AnimatedSection>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center opacity-60">
-            {Array.from({ length: 6 }, (_, i) => (
-              <div key={i} className="flex items-center justify-center p-4">
-                <img 
-                  src={partnerLogo1} 
-                  alt={`Partner ${i + 1}`}
-                  className="max-h-16 w-auto grayscale hover:grayscale-0 transition-all duration-300"
-                />
-              </div>
-            ))}
-          </div>
+          <AnimatedSection animation="fade-up" delay={200}>
+            <ScrollingLogos />
+          </AnimatedSection>
         </div>
       </section>
 
@@ -283,7 +338,7 @@ export default function Home() {
             Ready to Transform Your Business?
           </h2>
           <p className="text-xl text-accent-sky/90 mb-8 max-w-3xl mx-auto">
-            Join thousands of companies that have scaled their operations with our world-class BPO solutions.
+            Join thousands of companies that have scaled their operations with Intellivision Services' world-class BPO solutions.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="hero-outline" size="xl" className="group">
